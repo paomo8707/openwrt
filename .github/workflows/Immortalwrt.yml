@@ -10,10 +10,11 @@ on:
       REPO_BRANCH:
         description: '天灵源码-请选择分支'
         required: true
-        default: 'openwrt-23.05'
+        default: 'openwrt-24.10'
         type: choice
         options:
           - 'openwrt-23.05'
+          - 'openwrt-24.10'           
           - 'openwrt-21.02'
           - 'openwrt-18.06'
           - 'openwrt-18.06-k5.4'
@@ -58,12 +59,12 @@ on:
       UPLOAD_RELEASE:
         description: '发布固件到 Github Releases'
         required: false
-        default: 'false'
+        default: 'true'
         type: boolean
       CACHEWRTBUILD_SWITCH:
         description: '缓存加速编译'
         required: false
-        default: 'false'
+        default: 'true'
         type: boolean
       UPDATE_FIRMWARE_ONLINE:
         description: '增加在线更新固件功能/自动打包Amlogic_Rockchip系列固件'
@@ -94,6 +95,9 @@ env:
   WX_TOKEN: ${{ secrets.WX_TOKEN }}
   CURL: ${{ secrets.CURL }} 
   TZ: Asia/Shanghai
+  LC_ALL: C
+  LANG: C
+  LANGUAGE: C
 
 jobs:
   build:
