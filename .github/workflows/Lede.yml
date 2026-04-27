@@ -248,6 +248,18 @@ jobs:
       id: compile
       run: |
         cd openwrt
+
+# ========== 修复递归依赖报错 开始 ==========
+# 禁用循环依赖 strongswan
+sed -i '/CONFIG_PACKAGE_strongswan-minimal/d' .config
+sed -i '/CONFIG_PACKAGE_strongswan-mod-kdf/d' .config
+# 禁用自循环 kmod-oaf 模块
+sed -i '/CONFIG_PACKAGE_kmod-oaf/d' .config
+# 重载配置修复依赖
+make defconfig
+# ========== 修复递归依赖报错 结束 ==========
+
+        
         source ${BUILD_PATH}/common.sh && Diy_menu6
         
     - name: 上传"${{ matrix.target }}"配置文件在 Github Artifacts
